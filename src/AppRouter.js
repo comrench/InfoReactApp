@@ -6,8 +6,10 @@ import PropertyInfo from "./core/components/screens/PropertyInfo";
 import EmploymentInfo from "./core/components/screens/EmploymentInfo";
 import Summary from "./core/components/screens/Summary";
 import { configs } from "./core/utils/config";
+import { useNavigate } from "react-router-dom";
 
 export const history = createBrowserHistory();
+console.log(history);
 
 const AppRouter = (props) => {
   return (
