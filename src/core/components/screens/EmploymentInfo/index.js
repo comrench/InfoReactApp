@@ -5,18 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { getAddress } from "../../../utils";
 import Address from "../../shared/Address";
 import { createStructuredSelector } from "reselect";
-import { employmentAddressSelector } from "../../../selectors/EmploymentAddress";
-import { setEmploymentAddress } from "../../../actions";
+import {
+  employmentAddressSelector,
+  employmentStatusSelector,
+} from "../../../selectors/EmploymentAddress";
+import { setEmploymentAddress, setEmploymentStatus } from "../../../actions";
 import { connect } from "react-redux";
 import Button from "react-bootstrap/Button";
 import { Alert, FloatingLabel, Form, Row } from "react-bootstrap";
 import { EMP } from "../../../utils/constants";
 
 const EmploymentInfo = (props) => {
+  console.log(props.employmentStatus);
   const [addresses, setAddresses] = useState(
     getAddress(props.employmentAddress)
   );
-  const [empStatus, setEmpStatus] = useState("");
+  const [empStatus, setEmpStatus] = useState(
+    getAddress(props.employmentStatus)
+  );
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
@@ -30,7 +36,7 @@ const EmploymentInfo = (props) => {
   return (
     <>
       <h1>Employment Info</h1>
-      <row className="m-20">
+      <Row className="m-20">
         <FloatingLabel controlId="floatingSelectGrid" label="Employment Status">
           <Form.Select
             aria-label="empStatus"
@@ -43,7 +49,7 @@ const EmploymentInfo = (props) => {
             <option value="3">{EMP.ST}</option>
           </Form.Select>
         </FloatingLabel>
-      </row>
+      </Row>
       {error && (
         <Alert variant={"danger"}>User has to be employed to proceed.</Alert>
       )}
@@ -86,6 +92,7 @@ const EmploymentInfo = (props) => {
         handleNextClick={() => {
           if (empStatus === "1") {
             setError(false);
+            props.setEmploymentStatus(empStatus);
             props.setEmploymentAddress(addresses);
             navigate(configs.routes.summary);
           } else {
@@ -99,11 +106,13 @@ const EmploymentInfo = (props) => {
 
 const mapStateToProps = createStructuredSelector({
   employmentAddress: employmentAddressSelector(),
+  employmentStatus: employmentStatusSelector(),
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setEmploymentAddress: (value) => dispatch(setEmploymentAddress(value)),
+    setEmploymentStatus: (value) => dispatch(setEmploymentStatus(value)),
   };
 };
 

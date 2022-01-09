@@ -9,3 +9,9 @@ export const employmentAddressSelector = () =>
     getEmploymentInfoState,
     (employmentInfoState) => employmentInfoState
   );
+
+export const employmentStatusSelector = () =>
+  createSelector(
+    (state) => state.employment.get("employmentStatus"),
+    (employmentInfoState) => employmentInfoState
+  );
