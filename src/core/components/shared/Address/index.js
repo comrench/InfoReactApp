@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, FloatingLabel, Form, Row } from "react-bootstrap";
-
-const handleInputChange = (event) => console.log(event.target.value);
 
 const Address = (props) => {
   const { pStreetNumber, pStreetName, pCity, pProvince, pPostalCode } =
     props.address;
-  const [streetNumber, setStreetNumber] = useState("");
-  const [streetName, setStreetName] = useState("");
-  const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [streetNumber, setStreetNumber] = useState(pStreetNumber);
+  const [streetName, setStreetName] = useState(pStreetName);
+  const [city, setCity] = useState(pCity);
+  const [province, setProvince] = useState(pProvince);
+  const [postalCode, setPostalCode] = useState(pPostalCode);
+
+  useEffect(() => {
+    props.setAddress({
+      pStreetNumber: streetNumber,
+      pStreetName: streetName,
+      pCity: city,
+      pProvince: province,
+      pPostalCode: postalCode,
+    });
+  }, [streetNumber, streetName, city, province, postalCode]);
 
   return (
     <>
@@ -30,8 +38,8 @@ const Address = (props) => {
             <Form.Control
               type="text"
               placeholder="Street name"
-              defaultValue=""
-              onChange={handleInputChange}
+              defaultValue={streetName}
+              onChange={(event) => setStreetName(event.target.value)}
             />
           </FloatingLabel>
         </Col>
@@ -42,8 +50,8 @@ const Address = (props) => {
             <Form.Control
               type="text"
               placeholder="City"
-              defaultValue=""
-              onChange={handleInputChange}
+              defaultValue={city}
+              onChange={(event) => setCity(event.target.value)}
             />
           </FloatingLabel>
         </Col>
@@ -64,8 +72,8 @@ const Address = (props) => {
             <Form.Control
               type="text"
               placeholder="Postal code"
-              defaultValue=""
-              onChange={handleInputChange}
+              defaultValue={postalCode}
+              onChange={(event) => setPostalCode(event.target.value)}
             />
           </FloatingLabel>
         </Col>

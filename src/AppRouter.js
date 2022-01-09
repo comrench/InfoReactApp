@@ -15,23 +15,31 @@ const AppRouter = (props) => {
   return (
     <Router history={history}>
       <Routes>
-        <Route exact path={configs.routes.default} element={<PersonalInfo />} />
+        <Route
+          exact
+          path={configs.routes.default}
+          element={<PersonalInfo {...props} />}
+        />
         <Route
           exact
           path={configs.routes.personal}
-          element={<PersonalInfo />}
+          element={<PersonalInfo {...props} />}
         />
         <Route
           exact
           path={configs.routes.property}
-          element={<PropertyInfo />}
+          element={<PropertyInfo {...props} />}
         />
         <Route
           exact
           path={configs.routes.employment}
-          element={<EmploymentInfo />}
+          element={<EmploymentInfo {...props} />}
         />
-        <Route exact path={configs.routes.summary} element={<Summary />} />
+        <Route
+          exact
+          path={configs.routes.summary}
+          element={<Summary {...props} />}
+        />
       </Routes>
     </Router>
   );
