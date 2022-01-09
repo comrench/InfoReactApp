@@ -8,21 +8,62 @@ import { createStructuredSelector } from "reselect";
 import { employmentAddressSelector } from "../../../selectors/EmploymentAddress";
 import { setEmploymentAddress } from "../../../actions";
 import { connect } from "react-redux";
+import Button from "react-bootstrap/Button";
+import { Row } from "react-bootstrap";
 
 const EmploymentInfo = (props) => {
-  const [address, setAddress] = useState(getAddress(props.employmentAddress));
+  const [addresses, setAddresses] = useState(
+    getAddress(props.employmentAddress)
+  );
   const navigate = useNavigate();
+
+  const setAddress = (address, index) => {
+    const newArr = addresses.slice();
+    newArr[index] = address;
+    setAddresses(newArr);
+  };
+
   return (
     <>
       <h1>Employment Info</h1>
-      <Address address={address} setAddress={setAddress} />
+      {addresses.map((address, index) => {
+        return (
+          <div key={index}>
+            <h4>Employment address {index + 1}</h4>
+            <Address
+              key={index}
+              address={address}
+              setAddress={(addr) => setAddress(addr, index)}
+            />
+          </div>
+        );
+      })}
+      <Row className="g-2 m-20">
+        <Button
+          variant="secondary"
+          onClick={() =>
+            setAddresses([
+              ...addresses,
+              {
+                pStreetNumber: "",
+                pStreetName: "",
+                pCity: "",
+                pProvince: "",
+                pPostalCode: "",
+              },
+            ])
+          }
+        >
+          Add previous employment address
+        </Button>
+      </Row>
       <NavButtons
         handleBackClick={() => {
-          props.setEmploymentAddress(address);
+          props.setEmploymentAddress(addresses);
           navigate(configs.routes.property);
         }}
         handleNextClick={() => {
-          props.setEmploymentAddress(address);
+          props.setEmploymentAddress(addresses);
           navigate(configs.routes.summary);
         }}
       />

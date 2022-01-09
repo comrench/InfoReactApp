@@ -2,13 +2,15 @@ import { fromJS } from "immutable";
 import { SET_EMPLOYMENT_ADDRESS } from "../actions";
 
 export const initialState = fromJS({
-  employmentAddress: {
-    pStreetNumber: "",
-    pStreetName: "",
-    pCity: "",
-    pProvince: "",
-    pPostalCode: "",
-  },
+  employmentAddress: [
+    {
+      pStreetNumber: "",
+      pStreetName: "",
+      pCity: "",
+      pProvince: "",
+      pPostalCode: "",
+    },
+  ],
 });
 
 export const empReducer = (state, { type, payload }) => {

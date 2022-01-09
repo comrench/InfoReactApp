@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import { PROVINCE } from "../../../utils/constants";
 
 const Address = (props) => {
   const { pStreetNumber, pStreetName, pCity, pProvince, pPostalCode } =
@@ -19,6 +20,8 @@ const Address = (props) => {
       pPostalCode: postalCode,
     });
   }, [streetNumber, streetName, city, province, postalCode]);
+
+  console.log(props);
 
   return (
     <>
@@ -63,9 +66,19 @@ const Address = (props) => {
               onChange={(event) => setProvince(event.target.value)}
             >
               <option>Select</option>
-              <option value="1">Ontario</option>
-              <option value="2">British Columbia</option>
-              <option value="3">Quebec</option>
+              <option value="1">{PROVINCE.AB}</option>
+              <option value="2">{PROVINCE.BC}</option>
+              <option value="3">{PROVINCE.MB}</option>
+              <option value="4">{PROVINCE.NB}</option>
+              <option value="5">{PROVINCE.NL}</option>
+              <option value="6">{PROVINCE.NT}</option>
+              <option value="7">{PROVINCE.NS}</option>
+              <option value="8">{PROVINCE.NU}</option>
+              <option value="9">{PROVINCE.ON}</option>
+              <option value="10">{PROVINCE.PE}</option>
+              <option value="11">{PROVINCE.QC}</option>
+              <option value="12">{PROVINCE.SK}</option>
+              <option value="13">{PROVINCE.YT}</option>
             </Form.Select>
           </FloatingLabel>
         </Col>
