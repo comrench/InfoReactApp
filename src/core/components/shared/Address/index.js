@@ -22,7 +22,7 @@ const Address = (props) => {
 
   return (
     <>
-      <Row className="g-2">
+      <Row className="g-2 m-20">
         <Col md>
           <FloatingLabel controlId="floatingInputGrid" label="Street Number">
             <Form.Control
@@ -44,7 +44,7 @@ const Address = (props) => {
           </FloatingLabel>
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="g-2 m-20">
         <Col md>
           <FloatingLabel controlId="floatingInputGrid" label="City">
             <Form.Control
@@ -57,7 +57,11 @@ const Address = (props) => {
         </Col>
         <Col md>
           <FloatingLabel controlId="floatingSelectGrid" label="Province">
-            <Form.Select aria-label="Floating label select example">
+            <Form.Select
+              aria-label="province"
+              defaultValue={province}
+              onChange={(event) => setProvince(event.target.value)}
+            >
               <option>Select</option>
               <option value="1">Ontario</option>
               <option value="2">British Columbia</option>
@@ -66,7 +70,7 @@ const Address = (props) => {
           </FloatingLabel>
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="g-2 m-20">
         <Col md>
           <FloatingLabel controlId="floatingInputGrid" label="Postal Code">
             <Form.Control

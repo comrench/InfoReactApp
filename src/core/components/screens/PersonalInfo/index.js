@@ -7,21 +7,11 @@ import { setPersonalAddress } from "../../../actions";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { personalAddressSelector } from "../../../selectors/PersonalAddress";
-import { isImmutable } from "immutable";
-
-const getAddress = (address) =>
-  isImmutable(address) ? address.toJS() : address;
+import { getAddress } from "../../../utils";
 
 const PersonalInfo = (props) => {
   const [address, setAddress] = useState(getAddress(props.personalAddress));
   const navigate = useNavigate();
-  const myAddress = {
-    pStreetNumber: "",
-    pStreetName: "",
-    pCity: "",
-    pProvince: "",
-    pPostalCode: "",
-  };
   return (
     <>
       <h1>Personal Info</h1>
