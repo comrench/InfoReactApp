@@ -9,12 +9,16 @@ import { employmentAddressSelector } from "../../../selectors/EmploymentAddress"
 import { setEmploymentAddress } from "../../../actions";
 import { connect } from "react-redux";
 import Button from "react-bootstrap/Button";
-import { Row } from "react-bootstrap";
+import { Alert, FloatingLabel, Form, Row } from "react-bootstrap";
+import { EMP } from "../../../utils/constants";
 
 const EmploymentInfo = (props) => {
   const [addresses, setAddresses] = useState(
     getAddress(props.employmentAddress)
   );
+  const [empStatus, setEmpStatus] = useState("");
+  const [error, setError] = useState(false);
+
   const navigate = useNavigate();
 
   const setAddress = (address, index) => {
@@ -26,6 +30,23 @@ const EmploymentInfo = (props) => {
   return (
     <>
       <h1>Employment Info</h1>
+      <row className="m-20">
+        <FloatingLabel controlId="floatingSelectGrid" label="Employment Status">
+          <Form.Select
+            aria-label="empStatus"
+            defaultValue={empStatus}
+            onChange={(event) => setEmpStatus(event.target.value)}
+          >
+            <option>Select</option>
+            <option value="1">{EMP.EM}</option>
+            <option value="2">{EMP.RE}</option>
+            <option value="3">{EMP.ST}</option>
+          </Form.Select>
+        </FloatingLabel>
+      </row>
+      {error && (
+        <Alert variant={"danger"}>User has to be employed to proceed.</Alert>
+      )}
       {addresses.map((address, index) => {
         return (
           <div key={index}>
@@ -63,8 +84,13 @@ const EmploymentInfo = (props) => {
           navigate(configs.routes.property);
         }}
         handleNextClick={() => {
-          props.setEmploymentAddress(addresses);
-          navigate(configs.routes.summary);
+          if (empStatus === "1") {
+            setError(false);
+            props.setEmploymentAddress(addresses);
+            navigate(configs.routes.summary);
+          } else {
+            setError(true);
+          }
         }}
       />
     </>

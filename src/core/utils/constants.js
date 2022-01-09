@@ -13,3 +13,9 @@ export const PROVINCE = {
   SK: "Saskatchewan",
   YT: "Yukon",
 };
+
+export const EMP = {
+  EM: "Employed",
+  RE: "Retired",
+  ST: "Student",
+};
